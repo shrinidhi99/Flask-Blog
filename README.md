@@ -5,3 +5,13 @@
 > Things that were used alongside Flask:
 
 * ### [Bootstrap](https://getbootstrap.com/)
+
+## Steps to run this app:
+
+```shell
+    git clone https://github.com/shrinidhi99/Flask-Blog.git
+    virtualenv venv --distribute
+    source venv/bin/activate
+    pip3 freeze > requirements.txt
+    python3 flaskblog.py
+```
