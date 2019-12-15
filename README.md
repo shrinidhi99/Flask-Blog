@@ -13,5 +13,5 @@
     virtualenv venv --distribute
     source venv/bin/activate
     pip3 freeze > requirements.txt
-    python3 flaskblog.py
+    python3 run.py
 ```
