@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt
-from flaskblog.models import User, Post, get_curr_user, set_curr_user
+from flaskblog.models import User, Post, get_curr_user_sec_level, set_curr_user
 from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from flaskblog.users.utils import save_picture, send_reset_email
@@ -46,6 +46,7 @@ def login():
 @users.route("/logout")
 def logout():
     logout_user()
+    set_curr_user("logout")
     return redirect(url_for('main.home'))
 
 
