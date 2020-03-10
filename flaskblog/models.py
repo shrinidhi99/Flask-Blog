@@ -95,6 +95,7 @@ class Post(db.Model):
                             default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_sec_level = db.Column(db.Integer, nullable = False, default = 5)
     # sec_level = User.query.filter_by(id = user_id)
     # curr_owner_of_post, = User.query.filter_by(id = user_id)
     # print("Post Sec owner " +str(curr_owner_of_post))
