@@ -4,15 +4,23 @@ from flask import current_app
 from flaskblog import db, login_manager
 from flask_login import UserMixin
 
+
 curr_user = None
 curr_id = None
 curr_sec_level = None
+user_id_list = [1,2]
+num_of_user = 2
 
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+def add_user_id():
+    max_user_id = list[len(list)-1]
+    user_id_list.append(max_user_id+1)
+def inc_num_of_user():
+    num_of_user= num_of_user+1
 
 def set_curr_user(user_name):
     global curr_id, curr_sec_level

@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt
-from flaskblog.models import User, Post, get_curr_user_sec_level, set_curr_user
+from flaskblog.models import User, Post, get_curr_user_sec_level, set_curr_user, inc_num_of_user,add_user_id
 from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from flaskblog.users.utils import save_picture, send_reset_email
@@ -21,6 +21,8 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
+        inc_num_of_user()
+        add_user_id()
         return redirect(url_for('users.login'))
     return render_template('register.html', title='Register', form=form)
 

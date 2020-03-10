@@ -10,8 +10,7 @@ class Post(object):
         self.title = title
 
 
-posts = [Post(1, 1, "nothing much", "12/12/12", "First"),
-         Post(2, 2, "too much", "13/12/12", "Second")]
+posts = []
 
 # Rows will include subjects and columns will include subjects and objects
 row_acm = []
@@ -20,7 +19,7 @@ no_of_users = 4
 no_of_posts = 2
 
 for i in range(no_of_users + 1):
-    row_acm = []
+    global row_acm = []
     for j in range(no_of_users + no_of_posts + 1):
         if i == 0:
             row_acm.append([1, 1, 1, 1])
@@ -40,3 +39,9 @@ for i in range(no_of_users + 1):
 
 for i in range(no_of_users + 1):
     print(acm[i])
+
+def checkRead(post_id, user_id):
+    if acm[user_id][no_of_users+1+post_id]==[1,0,0,0]:
+        return 1
+    else:
+        return 0
