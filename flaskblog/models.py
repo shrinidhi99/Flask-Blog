@@ -5,9 +5,10 @@ from flaskblog import db, login_manager
 from flask_login import UserMixin
 
 
-roles = {"Admin","Blogger","SuperBlogger","CelebBlogger","Dev"}
-myDict = {"Admin":roles[0]}
+roles = {"Admin","Blogger","SuperBlogger","CelebBlogger","Dev","Spec"}
+myDict = {"Admin":"Admin"}
 curr_user_id = None
+curr_role = "Spec"
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -25,6 +26,40 @@ def get_curr_user_id():
 def update_curr_user_id(user_id):
     global curr_user_id
     curr_user_id = user_id
+
+def set_curr_user(user_name):
+    global curr_user_id, curr_role
+    if(user_name == "logout"):
+        curr_id = None
+        curr_role = "Spec"
+        return
+    curr_user, = User.query.filter_by(username=user_name)
+    print("In models.py: set_current_user " + str(curr_user))
+    curr_id = curr_user.id
+    curr_role = myDict[user_name]
+    print("In models.py: set_current_user_id " +
+          str(curr_id) + "role " + str(curr_role))
+# def get_curr_user():
+#     return curr_id
+
+
+def get_curr_user_role():
+    global curr_user_id, curr_role
+    print("In models.py: get_curr_user_role " +
+          str(curr_user_id) + " role " + str(curr_role))
+    if(curr_user_id == None):
+        print("In models.py:role " + "Spec")
+        return "Spec"
+    else:
+        print("In models.py get_curr_user_role: " + str(curr_role))
+        return curr_role
+
+
+def get_post_role(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    username = user.username
+    print("In models.py: get_post_role " + str(myDict.get(username)))
+    return myDict.get(username)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
