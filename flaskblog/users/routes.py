@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt
-from flaskblog.models import User, Post
+from flaskblog.models import User, Post, add_role
 from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from flaskblog.users.utils import save_picture, send_reset_email
@@ -17,6 +17,22 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        if(form.username.data == "admin"):
+            add_role(form.username.data,"Admin")
+        elif(form.username.data == "us1"):
+            add_role(form.username.data,"blogger")
+        elif(form.username.data == "sus1"):
+            add_role(form.username.data,"superblogger")
+        elif(form.username.data == "celeb1"):
+            add_role(form.username.data,"celebblogger")
+        elif(form.username.data == "us2"):
+            add_role(form.username.data,"blogger")
+        elif(form.username.data == "sus2"):
+            add_role(form.username.data,"superblogger")
+        elif(form.username.data == "celeb2"):
+            add_role(form.username.data,"celebblogger")
+        else:
+            add_role(form.username.data,"dev")
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
