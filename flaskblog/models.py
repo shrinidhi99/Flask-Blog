@@ -5,7 +5,7 @@ from flaskblog import db, login_manager
 from flask_login import UserMixin
 
 
-roles = {"Admin","Blogger","SuperBlogger","CelebBlogger","Dev","Spec"}
+roles = ["Admin","Blogger","SuperBlogger","CelebBlogger","Dev","Spec"]
 myDict = {"Admin":"Admin"}
 curr_user_id = None
 curr_role = "Spec"
@@ -43,6 +43,32 @@ def set_curr_user(user_name):
 #     return curr_id
 
 
+def get_precendence(role):
+    if(role == roles[0]):
+        return 100
+    elif(role == roles[1]):
+        return 1
+    elif(role == roles[2]):
+        return 2
+    elif(role == roles[3]):
+        return 3
+    elif(role == roles[4]):
+        return 99
+
+def compare_precedence(role1, role2):
+    if(role1 is None):
+        return 0
+    elif(role2 is None):
+        return 0
+    elif(role1==100):
+        return 1
+    elif (role2 == 100):
+        return 0
+    elif (role1 > role2):
+        return 0
+    else:
+        return 1
+
 def get_curr_user_role():
     global curr_user_id, curr_role
     print("In models.py: get_curr_user_role " +
@@ -56,7 +82,11 @@ def get_curr_user_role():
 
 
 def get_post_role(user_id):
+    if(user_id is None):
+        return "Blogger"
     user = User.query.filter_by(id=user_id).first()
+    if(user is None):
+        return "Blogger"
     username = user.username
     print("In models.py: get_post_role " + str(myDict.get(username)))
     return myDict.get(username)
