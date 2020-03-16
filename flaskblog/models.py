@@ -50,6 +50,8 @@ def set_curr_user(user_name):
 
 def get_precendence(role):
     print(role)
+    if(role==None):
+        return 5
     if(role == roles[0]):
         print("Here1")
         return 100
@@ -65,6 +67,8 @@ def get_precendence(role):
     elif(role == roles[4]):
         print("Here5")
         return 99
+    else:
+        return 5
 
 def compare_precedence(role1, role2):
     if(role1 is None):
@@ -94,8 +98,8 @@ def get_curr_user_role():
     print("In models.py: get_curr_user_role " +
           str(curr_user_id) + " role " + str(curr_role))
     if(curr_user_id == None):
-        print("In models.py:role " + "Spec")
-        return "Spec"
+        print("In models.py:role " + "blogger")
+        return "notspecified"
     else:
         print("In models.py get_curr_user_role: " + str(curr_role))
         return curr_role

@@ -60,6 +60,7 @@ def login():
 @users.route("/logout")
 def logout():
     logout_user()
+    set_curr_user("logout")
     return redirect(url_for('main.home'))
 
 
