@@ -8,7 +8,7 @@ main = Blueprint('main', __name__)
 @main.route("/home")
 def home():
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.group_by(Post.id).having(compare_precedence(get_precendence(get_curr_user_role()),get_precendence(get_post_role(Post.id)))==1).order_by(Post.date_posted.desc())
+    posts = Post.query.group_by(Post.id).having( get_precendence(get_curr_user_role()) <= Post.owners_role).order_by(Post.date_posted.desc())
     posts = posts.paginate(page=page, per_page=5)
     return render_template('home.html', posts=posts)
 
