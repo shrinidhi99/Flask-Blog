@@ -4,9 +4,14 @@ from flask import current_app
 from flaskblog import db, login_manager
 from flask_login import UserMixin
 
+# The idea is as follows 
+# The Admin should be able to see everyone's posts
+# Dev will be removed. Spec will not see anyone's post
+# Blogger <  SuperBlogger < CelebBlogger and these people see 
+# everyone who is above them's post
 
 roles = ["Admin","blogger","superblogger","celebblogger","dev","Spec"]
-myDict = {'Admin': 'Admin', 'us1': 'blogger', 'sus1': 'superblogger', 'celeb1': 'celebblogger', 
+myDict = {'admin': 'Admin', 'us1': 'blogger', 'sus1': 'superblogger', 'celeb1': 'celebblogger', 
 'us2': 'blogger', 'sus2': 'superblogger', 'celeb2': 'celebblogger', 'dev': 'dev'}
 curr_user_id = None
 curr_role = "Spec"
@@ -51,22 +56,25 @@ def set_curr_user(user_name):
 def get_precendence(role):
     print(role)
     if(role==None):
-        return 5
+        return 6
     if(role == roles[0]):
-        print("Here1")
-        return 100
+        print(role)
+        return 0
     elif(role == roles[1]):
-        print("Here2")
-        return 1
-    elif(role == roles[2]):
-        print("Here3")
+        print(role)
         return 2
-    elif(role == roles[3]):
-        print("Here4")
+    elif(role == roles[2]):
+        print(role)
         return 3
+    elif(role == roles[3]):
+        print(role)
+        return 4
     elif(role == roles[4]):
-        print("Here5")
-        return 99
+        print(role)
+        return 1
+    elif (role == roles[5]):
+        print(role)
+        return 100
     else:
         return 5
 
