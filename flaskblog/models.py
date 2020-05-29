@@ -12,14 +12,24 @@ from flask_login import UserMixin
 
 roles = ["Admin","blogger","superblogger","celebblogger","dev","Spec"]
 myDict = {'admin': 'Admin', 'us1': 'blogger', 'sus1': 'superblogger', 'celeb1': 'celebblogger', 
-'us2': 'blogger', 'sus2': 'superblogger', 'celeb2': 'celebblogger', 'dev': 'dev'}
+'us2': 'blogger', 'sus2': 'superblogger', 'celeb2': 'celebblogger', 'dev': 'dev', 'mod':'moderator'}
 curr_user_id = None
 curr_role = "Spec"
+curr_user_name = ""
+modToTopicDict = {"mod":"Cricket"}
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+def addTopicofMod(user_name, topic):
+    modToTopicDict[user_name] = topic
+def getTopicofMod(user_name):
+    print("Current user name is " + user_name)
+    return "Cricket"
+def get_curr_user_name():
+    return curr_user_name
 def add_role(user_name, role):
     myDict[user_name] = str(role)
     for key in myDict:
@@ -36,19 +46,20 @@ def update_curr_user_id(user_id):
     curr_user_id = user_id
 
 def set_curr_user(user_name):
-    global curr_user_id, curr_role, myDict
+    global curr_user_id, curr_role, myDict, curr_user_name
     if(user_name == "logout"):
         curr_user_id = None
         curr_role = "Spec"
         return
     curr_user, = User.query.filter_by(username=user_name)
-    print("In models.py: set_current_user " + str(curr_user))
+    # print("In models.py: set_current_user " + str(curr_user))
     curr_user_id = curr_user.id
     curr_role = myDict.get(user_name)
-    for key in myDict:
-        print(key + " " + myDict[key] + " ")
-    print("In models.py: set_current_user_id " +
-          str(curr_user_id) + " role " + str(curr_role))
+    curr_user_name = user_name
+    # for key in myDict:
+    #     print(key + " " + myDict[key] + " ")
+    # print("In models.py: set_current_user_id " +
+    #       str(curr_user_id) + " role " + str(curr_role))
 # def get_curr_user():
 #     return curr_id
 
@@ -155,6 +166,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     owners_role = db.Column(db.Integer, nullable = False, default = 0)
+    topic = db.Column(db.Text, nullable = False, default = "Main")
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"

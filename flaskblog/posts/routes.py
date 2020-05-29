@@ -13,7 +13,7 @@ posts = Blueprint('posts', __name__)
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, author=current_user, owners_role = get_precendence(get_curr_user_role()))
+        post = Post(title=form.title.data, content=form.content.data, author=current_user, owners_role = get_precendence(get_curr_user_role()), topic = form.topic.data)
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!', 'success')
@@ -25,14 +25,14 @@ def new_post():
 @posts.route("/post/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
+    return render_template('post.html', title=post.title, post=post, curr_role = get_curr_user_role())
 
 
 @posts.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
 @login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
+    if post.author != current_user and get_curr_user_role()!='moderator':
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
@@ -52,7 +52,7 @@ def update_post(post_id):
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
+    if post.author != current_user and get_curr_user_role()!='moderator':
         abort(403)
     db.session.delete(post)
     db.session.commit()

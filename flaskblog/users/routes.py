@@ -31,6 +31,8 @@ def register():
             add_role(form.username.data,"superblogger")
         elif(form.username.data == "celeb2"):
             add_role(form.username.data,"celebblogger")
+        elif(form.username.data == "mod"):
+            add_role(form.username.data,"moderator")
         else:
             add_role(form.username.data,"dev")
         db.session.add(user)
