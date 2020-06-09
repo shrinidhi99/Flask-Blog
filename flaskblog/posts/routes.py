@@ -32,7 +32,7 @@ def post(post_id):
 @login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user and get_curr_user_role()!='moderator':
+    if post.author != current_user and get_curr_user_role()!='moderator' and get_curr_user_role()!= "Admin":
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
@@ -52,7 +52,7 @@ def update_post(post_id):
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user and get_curr_user_role()!='moderator':
+    if post.author != current_user and get_curr_user_role()!='moderator' and get_curr_user_role()!="Admin":
         abort(403)
     db.session.delete(post)
     db.session.commit()
