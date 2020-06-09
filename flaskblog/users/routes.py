@@ -34,7 +34,7 @@ def register():
         elif(form.username.data == "mod"):
             add_role(form.username.data,"moderator")
         else:
-            add_role(form.username.data,"dev")
+            add_role(form.username.data,"blogger")
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
