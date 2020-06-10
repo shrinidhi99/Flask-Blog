@@ -19,6 +19,7 @@ this application requires prerequisites downloaded Once they are downloaded only
  ### Running the app
 
 ```shell
+cd Flask-Blog
 virtualenv venv --distribute
 source venv/bin/activate
 pip3 install -r requirements.txt
