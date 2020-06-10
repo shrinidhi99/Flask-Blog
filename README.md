@@ -1,17 +1,39 @@
 # Flask-Blog
-
-![Flask Blog](https://i0.wp.com/sourcedexter.com/wp-content/uploads/2017/09/flask-python.png?fit=640%2C400&ssl=1 "Flask")
-
-> Things that were used alongside Flask:
-
-* ### [Bootstrap](https://getbootstrap.com/)
+A social media application developed using flask implementing access control policies. 
+## Access Control Policies
+* 3 policies are implemented in this application and are maintained on different branches of this repository
+* RBAC is maintained in branch rbac
+* MAC is maintained in branch mac
+* DAC is maintained in branch dac
+* Use the below instructions to traverse and try out each of these policies. 
+* The attached pdf also 
 
 ## Steps to run this app:
+### Prerequisites
+* Install Python3 (https://wiki.python.org/moin/BeginnersGuide/Download)
+* Install pip (https://pip.pypa.io/en/stable/installing/)
+* Install Git (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* Unzip app
+ ### Running the app
 
 ```shell
-    git clone https://github.com/shrinidhi99/Flask-Blog.git
-    virtualenv venv --distribute
-    source venv/bin/activate
-    pip3 freeze > requirements.txt
-    python3 run.py
+virtualenv venv --distribute
+source venv/bin/activate
+pip3 install -r requirements.txt
+pip3 freeze > requirements.txt
+git branch
 ```
+* Check which branch you are currently in. 
+* There are 4 branches: rbac, dac, mac, master
+* Checkout the branch based on which policy needs to be used. 
+```shell
+git checkout <branch-name>
+python3 run.py
+```
+Open 127.0.0.1:5000 on a web browser.
+
+## Developers
+* Avakash Bhat (17CO110)
+* Shrindhi Anil Varna (171CO145)
+
+
