@@ -9,6 +9,8 @@ A social media application developed using flask implementing access control pol
 * The attached pdf also 
 
 ## Steps to run this app:
+The below steps detail the way to build the application. There is no direct executable file because
+this application requires prerequisites downloaded Once they are downloaded only one command is required. 
 ### Prerequisites
 * Install Python3 (https://wiki.python.org/moin/BeginnersGuide/Download)
 * Install pip (https://pip.pypa.io/en/stable/installing/)
